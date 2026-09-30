@@ -1,0 +1,5 @@
+design,stage1_dp_pa,stack_height_m,total_volume_m3_both_paths,cooling_MWh,mech_PUE,cooling_MWh_with_bypass,mech_PUE_with_bypass
+Assumed in energy model (compact commercial unit),200.0,,,274.557,1.116,244.681,1.103
+"Plain plates, 3 mm gap, 1.2 m plates",67.297,2.693,23.27,218.075,1.092,188.198,1.08
+"Plain plates, 3 mm gap, 1.5 m plates",105.191,1.723,23.261,234.204,1.099,204.327,1.086
+"Plain plates, 4 mm gap, 1.5 m plates",33.299,3.025,40.842,203.604,1.086,173.728,1.073

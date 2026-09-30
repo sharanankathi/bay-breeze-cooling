@@ -47,6 +47,26 @@ Full table: [`results/sensitivity.csv`](results/sensitivity.csv).
 ![Bay air vs water, 2023](results/fig2_air_vs_water_2023.png)
 ![Hottest day temperature chain](results/fig3_hottest_day_chain.png)
 
+## Energy: does it actually save power?
+
+Adding every fan and pump (typical pressure drops and efficiencies, see `energy_model.py`) gives annual
+cooling electricity for the 270 kW room:
+
+| Option | Cooling electricity | Mech. PUE | Bay water pumped |
+|---|---|---|---|
+| Chiller only | 741 MWh/yr | 1.31 | none |
+| Seawater first (pump every hour) | 157 MWh/yr | 1.07 | 200,000 m³/yr |
+| **Hybrid, breeze first** | **275 MWh/yr** | **1.12** | **30,500 m³/yr** |
+| Hybrid + seawater-coil bypass | 245 MWh/yr | 1.10 | 30,500 m³/yr |
+
+Honest result: the hybrid uses about two-thirds less energy than a chiller plant, but **pumping Bay water every
+hour uses even less**, because fans cost more than pumps. The hybrid's advantage is Bay impact: ~85% less seawater
+pumped and ~40× less heat returned to the Bay, for about $0.09 of electricity per m³ of seawater avoided.
+A 24 °C supply cuts pump runtime to 2.9% of hours (PUE 1.10).
+
+![Annual cooling energy](results/fig4_annual_cooling_energy.png)
+![Bay water pumped](results/fig5_seawater_pumped.png)
+
 ## Room-level CFD (Ansys Icepak)
 
 The 21 °C supply and 33.25 °C return used above come from a room CFD model: 18 racks in a
@@ -74,6 +94,8 @@ python fetch_data.py      # optional: re-download the data (already included in 
 python climate_model.py   # simple screen: how often is air/water cold enough?
 python hx_model.py        # the two-stage heat exchanger chain + sensitivity
 python plots.py           # charts in results/
+python energy_model.py    # fan + pump + chiller power, PUE, baselines, sensitivity
+python plots_energy.py    # energy charts
 ```
 
 ## Limitations
@@ -93,5 +115,5 @@ python plots.py           # charts in results/
 ## Credits
 
 Research idea, design decisions and modeling direction: **Vishnu Sai Sharan Ankathi**
-([vankathi@usc.edu](mailto:vishnusaisharan.a@gmail.com AI tools were used to help write code, run calculations and draft documentation.
+([vankathi@usc.edu](mailto:vankathi@usc.edu)). AI tools were used to help write code, run calculations and draft documentation.
 Data: Open-Meteo (CC BY 4.0) and NOAA CO-OPS (public domain).

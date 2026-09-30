@@ -1,0 +1,25 @@
+Per-path design power:  room fans 11.4 kW, outdoor fans 9.2 kW, pump 0.85 kW
+                       room_fan_MWh  outdoor_fan_MWh  pump_MWh  chiller_MWh  cooling_MWh  mech_PUE  pump_runtime_%  seawater_1000m3_per_yr  heat_to_bay_MWh_th
+Hybrid (breeze first)        199.75            72.53      2.26         0.01       274.56      1.12           15.24                   30.49               62.14
+Hybrid + coil bypass         169.87            72.53      2.26         0.01       244.68      1.10           15.24                   30.49               62.14
+Seawater first               141.00             0.00     14.81         1.34       157.15      1.07          100.00                  199.98             2556.31
+Chiller only                 149.81             0.00      0.00       591.30       741.11      1.31            0.00                    0.00                0.00
+  Hybrid (breeze first)    cooling energy   274.6 MWh/yr ( 63.0 % below chiller only), mech. PUE 1.116
+  Hybrid + coil bypass     cooling energy   244.7 MWh/yr ( 67.0 % below chiller only), mech. PUE 1.103
+  Seawater first           cooling energy   157.2 MWh/yr ( 78.8 % below chiller only), mech. PUE 1.066
+  Chiller only             cooling energy   741.1 MWh/yr (  0.0 % below chiller only), mech. PUE 1.313
+                                case  cooling_MWh  mech_PUE  pump_runtime_%
+Baseline (eps 0.75, ratio 1.0, 21 C)      274.557     1.116          15.245
+                         Supply 24 C      227.793     1.096           2.889
+               Outdoor-air ratio 1.5      248.784     1.105           6.680
+                    Stage 1 eps 0.65      309.422     1.131          36.899
+                    Stage 1 eps 0.85      256.713     1.109           7.010
+            All pressure drops +30 %      356.243     1.151          15.245
+            All pressure drops -30 %      192.872     1.082          15.245
+                 Fan efficiency 0.50      329.014     1.139          15.245
+                 Fan efficiency 0.70      235.659     1.100          15.245
+                   Pump head 250 kPa      275.828     1.117          15.245
+  chiller-only COP 3.0: 938 MWh/yr, mech PUE 1.397
+  chiller-only COP 4.0: 741 MWh/yr, mech PUE 1.313
+  chiller-only COP 5.0: 623 MWh/yr, mech PUE 1.263
+  chiller-only COP 6.0: 544 MWh/yr, mech PUE 1.230
