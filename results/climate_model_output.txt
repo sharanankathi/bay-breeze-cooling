@@ -1,0 +1,8 @@
+Hours analysed: 26304 | mean air 13.5 C, mean RH 78.7%
+Direct free air, ASHRAE recommended: 3.9% of hours
+Direct free air, ASHRAE allowable A2: 40.0% of hours
+ supply_c  approach_c  air_only_%  seawater_%  neither_%
+       18           3        69.6         5.7       24.7
+       18           5        47.0         4.4       48.6
+       21           3        90.1         7.7        2.2
+       21           5        78.4         5.7       15.9
