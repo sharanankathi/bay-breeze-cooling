@@ -27,6 +27,12 @@ RHO, CP_AIR = 1.18, 1006.0
 C_ROOM = V_ROOM * RHO * CP_AIR                 # W/K
 T_RETURN = 33.25        # C, hot-aisle return air from CFD Test 1
 SETPOINT = 21.0         # C, cold-aisle supply target
+DT_RACK = T_RETURN - SETPOINT   # 12.25 K air-side rise across the racks (CFD Test 1)
+
+
+def t_return(setpoint):
+    """Return air temperature for a given supply setpoint: the rack rise is fixed by load and airflow."""
+    return setpoint + DT_RACK
 M_SEA, CP_SEA = 3.25, 3990.0                  # kg/s seawater per path (~51 GPM), J/kg-K
 C_SEA = M_SEA * CP_SEA
 EPS2_DESIGN = 0.80      # air-to-seawater coil effectiveness at design flows
@@ -66,8 +72,9 @@ def stage2_eps():
 def run(df, eps1_design=0.75, ratio=1.0, setpoint=SETPOINT):
     e1, e2 = stage1_eps(eps1_design, ratio), stage2_eps()
     t_out, t_sea = df.air_c.values, df.water_c.values
-    after1 = T_RETURN - e1 * (T_RETURN - t_out)
-    after1 = np.clip(after1, setpoint, T_RETURN)        # modulate to avoid overcooling; bypass if outside air is hotter than return
+    tr = t_return(setpoint)
+    after1 = tr - e1 * (tr - t_out)
+    after1 = np.clip(after1, setpoint, tr)        # modulate to avoid overcooling; bypass if outside air is hotter than return
     need2 = after1 > setpoint + 1e-9
     after2 = np.where(need2, after1 - e2 * np.maximum(after1 - t_sea, 0), after1)
     after2 = np.maximum(after2, setpoint)

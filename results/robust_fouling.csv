@@ -1,0 +1,8 @@
+deposit_mm_per_wall,outdoor_dp_pa,eps1,air_only_%,cooling_MWh_with_bypass,mech_PUE,design
+0.0,67.297,0.75,84.755,188.182,1.08,"3 mm gap, 1.2 m plates"
+0.1,82.542,0.753,84.755,189.611,1.08,"3 mm gap, 1.2 m plates"
+0.25,115.482,0.758,85.291,192.72,1.081,"3 mm gap, 1.2 m plates"
+0.5,223.975,0.766,86.348,204.281,1.086,"3 mm gap, 1.2 m plates"
+0.0,33.299,0.75,84.755,173.727,1.073,"4 mm gap, 1.5 m plates"
+0.25,49.447,0.756,85.291,174.585,1.074,"4 mm gap, 1.5 m plates"
+0.5,78.109,0.762,85.869,176.956,1.075,"4 mm gap, 1.5 m plates"

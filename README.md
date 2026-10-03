@@ -1,4 +1,6 @@
-# Bay Breeze Cooling: a hybrid air / seawater cooled data center on the San Francisco Bay
+# Bay Breeze Cooling
+
+Code and data for *Breeze First, Seawater Second: Hybrid Cooling for an Above-Water Offshore Data Center on San Francisco Bay Within California's Discharge Limit* (working draft v9, October 2026).
 
 Can the Bay Area's cool marine-layer breeze do most of the work of cooling a data center, with pumped
 Bay water held in reserve? This repo is an early-stage, independent feasibility study. It follows the
@@ -41,7 +43,7 @@ and Bay water carries the rest.
 | 0.75 | 85% | 93% |
 | 0.85 | 93% | 96% |
 
-Allowing a 24 °C supply (still inside ASHRAE's recommended 18–27 °C band) raises breeze-only hours to 93–99%.
+Allowing a 24 °C supply (still inside ASHRAE's recommended 18–27 °C band) raises breeze-only hours to 87–99%, with the return air rising with the supply (36.25 °C). Room CFD (Test 3, full cold-aisle containment) confirms rack inlets stay at 24.0–25.5 °C and the return rise is unchanged.
 Full table: [`results/sensitivity.csv`](results/sensitivity.csv).
 
 ![Bay air vs water, 2023](results/fig2_air_vs_water_2023.png)
@@ -62,10 +64,37 @@ cooling electricity for the 270 kW room:
 Honest result: the hybrid uses about two-thirds less energy than a chiller plant, but **pumping Bay water every
 hour uses even less**, because fans cost more than pumps. The hybrid's advantage is Bay impact: ~85% less seawater
 pumped and ~40× less heat returned to the Bay, for about $0.09 of electricity per m³ of seawater avoided.
-A 24 °C supply cuts pump runtime to 2.9% of hours (PUE 1.10).
+A 24 °C supply cuts pump runtime to 4.4% of hours (PUE 1.10); room CFD confirms rack inlets stay within ASHRAE limits with full containment.
 
 ![Annual cooling energy](results/fig4_annual_cooling_energy.png)
 ![Bay water pumped](results/fig5_seawater_pumped.png)
+
+## Bay discharge rule: the comparison changes
+
+California's Thermal Plan names San Francisco Bay as an enclosed bay and prohibits **new** cooling-water
+discharges more than 4 °F (2.2 K) above the natural water temperature. The fixed 3.25 kg/s seawater flow used
+above returns water up to 11.3 K warmer, so neither design as modelled above could be permitted.
+
+`bay_discharge.py` re-models the seawater coil with a variable-speed pump that keeps the rise at or below 2.0 K:
+
+| Design (discharge-compliant, 21 °C supply) | Cooling electricity | Mech. PUE | Bay water pumped |
+|---|---|---|---|
+| Seawater first | 201 MWh/yr (182–219 with pipe friction) | 1.08 | 1,128,000 m³/yr |
+| Hybrid, sized 67 Pa exchanger | 217 MWh/yr | 1.09 | 27,400 m³/yr |
+| **Hybrid, sized 67 Pa exchanger + coil bypass** | **187 MWh/yr** | **1.08** | **27,400 m³/yr** |
+
+With the rule applied to both, the energy premium disappears: about the same energy, ~41× less Bay water and heat.
+The seawater loop must be sized for ~18 kg/s per path (not 3.25). Peak intake is 0.82 MGD per 270 kW module, below
+the federal 316(b) 2 MGD threshold, but a 1 MW site (either design) is above it.
+
+![Discharge-compliant comparison](results/fig7_discharge_compliant.png)
+
+`robustness.py` adds fan heat (already covered by the CFD return temperature), outdoor-side fouling (4 mm gaps
+are more tolerant), condensation (none if room dew point ≤ 12 °C), exhaust recirculation (each 1 K of intake
+warming adds 7–11 points of pump runtime) and commercial-core effectiveness (ε 0.60 more than triples pumping;
+specify ≥ 0.75).
+
+![Recirculation sensitivity](results/fig8_recirculation_sensitivity.png)
 
 ## Room-level CFD (Ansys Icepak)
 
@@ -96,13 +125,18 @@ python hx_model.py        # the two-stage heat exchanger chain + sensitivity
 python plots.py           # charts in results/
 python energy_model.py    # fan + pump + chiller power, PUE, baselines, sensitivity
 python plots_energy.py    # energy charts
+python hx_sizing.py       # Stage 1 plate exchanger size and pressure drop
+python bay_discharge.py   # 2.2 K Bay discharge rule, compliant pump flow, 316(b) intake check
+python robustness.py      # fan heat, fouling, condensation, recirculation, core effectiveness
+python plots_discharge.py # discharge and recirculation charts
 ```
 
 ## Limitations
 
 - Single weather grid point and single tide station, not an on-site survey; 3 years of data, not a 30-year normal.
 - Heat exchanger effectiveness values are design assumptions, not vendor data. The sensitivity table shows how much they matter.
-- Fan power and pressure drop through filters, ducts and coils aren't modeled yet.
+- Pressure drops for filters, ducts and coils are typical design values, not vendor data.
+- The discharge check applies the 2.2 K cap at the coil outlet; permit mixing-zone and biological conditions are not modeled.
 - The CFD model sets the rack airflow and heat as inputs; it tests how the room air behaves, not rack internals.
 - Not peer reviewed. Feedback from data center thermal, marine/corrosion and HVAC engineers is very welcome.
 
@@ -117,3 +151,14 @@ python plots_energy.py    # energy charts
 Research idea, design decisions and modeling direction: **Vishnu Sai Sharan Ankathi**
 ([vankathi@usc.edu](mailto:vankathi@usc.edu)). AI tools were used to help write code, run calculations and draft documentation.
 Data: Open-Meteo (CC BY 4.0) and NOAA CO-OPS (public domain).
+
+
+## Room CFD (Tests 2 and 3) and rack-inlet profiles
+
+Full cold-aisle containment holds rack inlets at supply temperature except within 0.5 m of the row ends (21.0–22.5 °C at 21 °C supply, 24.0–25.5 °C at 24 °C). End panels alone leave most of the row 1–3 K above supply. A 566,640-cell mesh changes the mean return by less than 0.02 K.
+
+- `fig10.py`, `digit2.py`, `lineA_digitised.csv`: rack-inlet profiles digitised from the Icepak line plots and the comparison figure `fig10_rack_inlet_profiles.png`.
+
+## Commercial core check
+
+`results/vendor_check_recutech.csv`: a commercial counterflow core (Recutech REC+120) run in the maker's online selection tool at the design conditions reaches 81–85% dry effectiveness, above the 0.75 assumed in the model. With the low-pressure option (about 23 units per path, ~75 Pa), the discharge-compliant hybrid drops to 174 MWh/yr, 7.3% pump runtime and 15,000 m³ of Bay water. Calculator values, not a vendor-confirmed selection.

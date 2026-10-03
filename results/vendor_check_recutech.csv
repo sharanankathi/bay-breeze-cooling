@@ -1,0 +1,5 @@
+source,unit,unit_size_mm,gap_mm,flow_per_unit_m3h,units_per_path,eff_dry_pct,dp_supply_pa,dp_room_pa,volume_per_path_m3,model_breeze_only_pct,model_pump_runtime_pct,model_cooling_MWh,model_mechPUE,model_seawater_1000m3
+paper design,crossflow plate stack (sized),1200x1200x2700 x3,3.0,12070,3,75.0,67,67,11.6,84.8,15.2,186.8,1.079,27.4
+Recutech rSelect online (2026-10-03),REC+120 counterflow aluminium,1425x1200x600,3.3,1500,23,84.7,70.5,77.5,23.6,92.7,7.3,173.9,1.074,15.0
+Recutech rSelect online (2026-10-03),REC+120 counterflow aluminium,1425x1200x600,3.3,2500,14,81.9,148.1,164.3,14.4,90.9,9.1,210.4,1.089,17.5
+Recutech rSelect online (2026-10-03),REC+120 counterflow aluminium,1425x1200x600,3.3,3000,12,81.0,196.2,218.2,12.3,90.6,9.4,232.4,1.098,18.4

@@ -1,0 +1,6 @@
+case,fixed_flow_MWh,fixed_flow_PUE,fixed_flow_seawater_1000m3,compliant_MWh,compliant_PUE,compliant_pump_MWh,compliant_seawater_1000m3
+"Hybrid, assumed 200 Pa exchanger",274.557,1.116,30.487,273.166,1.115,0.881,27.384
+"Hybrid, 200 Pa + coil bypass",244.681,1.103,30.487,243.29,1.103,0.881,27.384
+"Hybrid, sized 67 Pa exchanger",218.075,1.092,30.487,216.684,1.092,0.881,27.384
+"Hybrid, sized 67 Pa + coil bypass",188.198,1.08,30.487,186.807,1.079,0.881,27.384
+Seawater first,157.152,1.066,199.984,200.789,1.085,59.788,1128.052

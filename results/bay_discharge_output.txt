@@ -1,0 +1,19 @@
+Hybrid, fixed 3.25 kg/s: max discharge rise 11.3 K, mean 1.79 K, 26% of pumping hours above the 2.22 K rule
+Seawater first, fixed 3.25 kg/s: max discharge rise 11.3 K, mean 11.25 K, 100% of pumping hours above the 2.22 K rule
+                                    case  pump_runtime_%  design_flow_kg_s_per_path  design_intake_m3_s  design_intake_MGD  seawater_m3_per_yr  max_discharge_rise_K  hours_over_rule  heat_to_bay_MWh_th  pump_MWh  chiller_hours_%  screen_open_area_m2
+        Hybrid, 21 C supply, rise <= 2 K           15.24                      18.33                0.04               0.82            27384.13                   2.0                0               62.21      0.88              0.0                 0.23
+Seawater first, 21 C supply, rise <= 2 K          100.00                      23.94                0.05               1.07          1128051.58                   2.0                0             2563.00     59.79              0.0                 0.31
+        Hybrid, 24 C supply, rise <= 2 K            4.37                      18.33                0.04               0.82             8911.13                   2.0                0               20.25      0.30              0.0                 0.23
+Seawater first, 24 C supply, rise <= 2 K          100.00                      18.33                0.04               0.82          1128038.45                   2.0                0             2563.00     83.56              0.0                 0.23
+Rule: 4 F = 2.22 K. Design cap 2.0 K. 316(b) new-facility threshold: 2 MGD = 0.0876 m3/s.
+  Hybrid at x1: design intake 0.036 m3/s = 0.82 MGD
+  Hybrid at x3.7: design intake 0.132 m3/s = 3.02 MGD
+  Hybrid at x37: design intake 1.323 m3/s = 30.21 MGD
+
+Annual cooling energy, fixed 3.25 kg/s flow vs discharge-compliant variable flow
+                             case  fixed_flow_MWh  fixed_flow_PUE  fixed_flow_seawater_1000m3  compliant_MWh  compliant_PUE  compliant_pump_MWh  compliant_seawater_1000m3
+ Hybrid, assumed 200 Pa exchanger          274.56            1.12                       30.49         273.17           1.12                0.88                      27.38
+     Hybrid, 200 Pa + coil bypass          244.68            1.10                       30.49         243.29           1.10                0.88                      27.38
+    Hybrid, sized 67 Pa exchanger          218.07            1.09                       30.49         216.68           1.09                0.88                      27.38
+Hybrid, sized 67 Pa + coil bypass          188.20            1.08                       30.49         186.81           1.08                0.88                      27.38
+                   Seawater first          157.15            1.07                      199.98         200.79           1.08               59.79                    1128.05

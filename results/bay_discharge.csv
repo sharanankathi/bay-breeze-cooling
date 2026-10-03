@@ -1,0 +1,5 @@
+case,pump_runtime_%,design_flow_kg_s_per_path,design_intake_m3_s,design_intake_MGD,seawater_m3_per_yr,max_discharge_rise_K,hours_over_rule,heat_to_bay_MWh_th,pump_MWh,chiller_hours_%,screen_open_area_m2
+"Hybrid, 21 C supply, rise <= 2 K",15.245,18.332,0.036,0.817,27384.13,2.0,0,62.206,0.881,0.0,0.235
+"Seawater first, 21 C supply, rise <= 2 K",100.0,23.944,0.047,1.066,1128051.578,2.0,0,2562.997,59.788,0.004,0.307
+"Hybrid, 24 C supply, rise <= 2 K",4.368,18.332,0.036,0.817,8911.129,2.0,0,20.247,0.303,0.0,0.235
+"Seawater first, 24 C supply, rise <= 2 K",100.0,18.332,0.036,0.817,1128038.45,2.0,0,2562.997,83.558,0.0,0.235

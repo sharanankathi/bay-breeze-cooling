@@ -74,9 +74,10 @@ def pump_kw(a):
 
 def speed_needed(t_out, eps1_design, ratio_max, setpoint):
     """Fraction of design outdoor-air flow needed for Stage 1 alone to reach the setpoint."""
-    if t_out >= hx.T_RETURN:
+    tr = hx.t_return(setpoint)
+    if t_out >= tr:
         return 0.0                                  # outside air hotter than return: Stage 1 off
-    e_req = (hx.T_RETURN - setpoint) / (hx.T_RETURN - t_out)
+    e_req = (tr - setpoint) / (tr - t_out)
     if hx.stage1_eps(eps1_design, ratio_max) <= e_req:
         return 1.0                                  # full speed, Stage 2 picks up the rest
     f = lambda s: hx.stage1_eps(eps1_design, max(s, 1e-3) * ratio_max) - e_req
@@ -120,7 +121,8 @@ def chiller_only(df, a=A):
 
 def seawater_first(df, a=A, setpoint=hx.SETPOINT):
     e2 = hx.stage2_eps()
-    after = hx.T_RETURN - e2 * np.maximum(hx.T_RETURN - df.water_c.values, 0)
+    tr = hx.t_return(setpoint)
+    after = tr - e2 * np.maximum(tr - df.water_c.values, 0)
     after = np.maximum(after, setpoint)
     dp = a["dp_room_ducts"] + a["dp_stage2_coil"] + a["dp_room_misc"]
     res = df[["time"]].copy()
@@ -128,7 +130,7 @@ def seawater_first(df, a=A, setpoint=hx.SETPOINT):
     res["outdoor_fan_kw"] = 0.0
     res["pump_kw"] = pump_kw(a) * N_PATHS
     res["chiller_kw_e"] = hx.C_ROOM * (after - setpoint) / 1e3 * N_PATHS / a["chiller_cop_hybrid"]
-    res["heat_to_bay_kw"] = hx.C_ROOM * (hx.T_RETURN - after) / 1e3 * N_PATHS
+    res["heat_to_bay_kw"] = hx.C_ROOM * (tr - after) / 1e3 * N_PATHS
     return res
 
 
@@ -182,7 +184,7 @@ if __name__ == "__main__":
         r = annual(hybrid(df, a=a, **kw))
         rows.append({"case": label, **{k: round(v, 3) for k, v in r.items()}})
     add("Baseline (eps 0.75, ratio 1.0, 21 C)")
-    add("Supply 24 C", setpoint=24.0)
+    add("Supply 24 C (return 36.25 C; pending CFD Test 3)", setpoint=24.0)
     add("Outdoor-air ratio 1.5", ratio=1.5)
     add("Stage 1 eps 0.65", eps1_design=0.65)
     add("Stage 1 eps 0.85", eps1_design=0.85)
