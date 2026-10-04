@@ -29,7 +29,7 @@ OUT = Path(__file__).parent / "results"
 RHO, MU, K_AIR, CP = 1.18, 1.85e-5, 0.026, 1006.0
 NU, FRE, K_LOSS = 7.54, 96.0, 1.0
 T_PLATE = 0.15e-3            # m, aluminium plate thickness
-N_MODULES = 3                # per path
+N_MODULES = 3                # Stage 1 cores per path ("module" in this file = one plate core, not the 270 kW room module used in the paper)
 Q_MOD = hx.V_ROOM / N_MODULES          # m3/s room air per module (outdoor air equal at ratio 1.0)
 C_MOD = Q_MOD * RHO * CP
 EPS_DESIGN = 0.75

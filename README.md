@@ -149,7 +149,7 @@ python plots_discharge.py # discharge and recirculation charts
 ## Credits
 
 Research idea, design decisions and modeling direction: **Vishnu Sai Sharan Ankathi**
-([vankathi@usc.edu](mailto:vishnusaisharan.a@gmail.com)). AI tools were used to help write code, run calculations and draft documentation.
+([vankathi@usc.edu](mailto:vankathi@usc.edu)). AI tools were used to help write code, run calculations and draft documentation.
 Data: Open-Meteo (CC BY 4.0) and NOAA CO-OPS (public domain).
 
 
