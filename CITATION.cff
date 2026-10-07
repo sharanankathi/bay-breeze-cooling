@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite it as below."
+title: "bay-breeze-cooling: models and data for air-first, seawater-backup hybrid cooling of an above-water data center on San Francisco Bay"
+version: v1.0.0
+date-released: 2026-10-07
+license: MIT
+repository-code: "https://github.com/sharanankathi/bay-breeze-cooling"
+authors:
+  - family-names: Ankathi
+    given-names: Vishnu Sai Sharan
+    orcid: "https://orcid.org/0009-0003-9824-3632"
+    affiliation: Independent researcher
+keywords:
+  - data center cooling
+  - free cooling
+  - seawater cooling
+  - thermal discharge

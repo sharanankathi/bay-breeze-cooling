@@ -1,6 +1,8 @@
 # Bay Breeze Cooling
 
-Code and data for *Breeze First, Seawater Second: Hybrid Cooling for an Above-Water Offshore Data Center on San Francisco Bay Within California's Discharge Limit* (working draft v9, October 2026).
+Code and data for *Breeze First, Seawater Second: Hybrid Cooling for an Above-Water Offshore Data Center on San Francisco Bay Within California's Discharge Limit* (preprint v1, October 2026).
+
+Paper: [`docs/hybrid_dc_cooling_preprint_v1.pdf`](docs/hybrid_dc_cooling_preprint_v1.pdf)
 
 Can the Bay Area's cool marine-layer breeze do most of the work of cooling a data center, with pumped
 Bay water held in reserve? This repo is an early-stage, independent feasibility study. It follows the
@@ -149,7 +151,7 @@ python plots_discharge.py # discharge and recirculation charts
 ## Credits
 
 Research idea, design decisions and modeling direction: **Vishnu Sai Sharan Ankathi**
-([vankathi@usc.edu](mailto:vishnusaisharan.a@gmail.com)). AI tools were used to help write code, run calculations and draft documentation.
+([vankathi@usc.edu](mailto:vankathi@usc.edu)). AI tools were used to help write code, run calculations and draft documentation.
 Data: Open-Meteo (CC BY 4.0) and NOAA CO-OPS (public domain).
 
 
