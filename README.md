@@ -1,5 +1,7 @@
 # Bay Breeze Cooling
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23204309.svg)](https://doi.org/10.5281/zenodo.23204309)
+
 Code and data for *Breeze First, Seawater Second: Hybrid Cooling for an Above-Water Offshore Data Center on San Francisco Bay Within California's Discharge Limit* (preprint v1, October 2026).
 
 Paper: [`docs/hybrid_dc_cooling_preprint_v1.pdf`](docs/hybrid_dc_cooling_preprint_v1.pdf)
