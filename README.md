@@ -1,10 +1,12 @@
 # Bay Breeze Cooling
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23204309.svg)](https://doi.org/10.5281/zenodo.23204309)
+[![Paper DOI](https://img.shields.io/badge/Paper-10.31224%2F8466-blue)](https://doi.org/10.31224/8466) [![Code DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23204309.svg)](https://doi.org/10.5281/zenodo.23204309)
 
 Code and data for *Breeze First, Seawater Second: Hybrid Cooling for an Above-Water Offshore Data Center on San Francisco Bay Within California's Discharge Limit* (preprint v1, October 2026).
 
-Paper: [`docs/hybrid_dc_cooling_preprint_v1.pdf`](docs/hybrid_dc_cooling_preprint_v1.pdf)
+Paper: Ankathi, V. S. S. (2026). *Breeze First, Seawater Second: Hybrid Cooling for an Above-Water Offshore Data Center on San Francisco Bay Within California's Discharge Limit.* Engineering Archive (engrXiv), preprint v1. [https://doi.org/10.31224/8466](https://doi.org/10.31224/8466) ([local PDF](docs/hybrid_dc_cooling_preprint_v1.pdf))
+
+Code and data (this release): [https://doi.org/10.5281/zenodo.23204309](https://doi.org/10.5281/zenodo.23204309)
 
 Can the Bay Area's cool marine-layer breeze do most of the work of cooling a data center, with pumped
 Bay water held in reserve? This repo is an early-stage, independent feasibility study. It follows the
@@ -166,3 +168,9 @@ Full cold-aisle containment holds rack inlets at supply temperature except withi
 ## Commercial core check
 
 `results/vendor_check_recutech.csv`: a commercial counterflow core (Recutech REC+120) run in the maker's online selection tool at the design conditions reaches 81–85% dry effectiveness, above the 0.75 assumed in the model. With the low-pressure option (about 23 units per path, ~75 Pa), the discharge-compliant hybrid drops to 174 MWh/yr, 7.3% pump runtime and 15,000 m³ of Bay water. Calculator values, not a vendor-confirmed selection.
+
+## Supplementary analyses (after preprint v1)
+
+**Air-data validation.** `validate_air_fetch.py` downloads measured 2022–2024 air temperature from NOAA tide stations 9414290 (San Francisco) and 9414750 (Alameda) and SFO airport (ASOS). `validate_air.py` and `validate_air_water.py` compare them with the reanalysis input and re-run the model. The reanalysis lies within the measured range (bias −0.6 to +1.0 K); breeze-only hours range 75–94% and the hybrid uses 22–157× less Bay water than seawater first. Results: `results/air_validation_summary.csv`, `results/air_validation_water.csv`.
+
+**West Coast site screen.** `westcoast_fetch.py` downloads NOAA NDBC buoy air, sea temperature and wind (2022–2024) for 14 sites from San Diego to Cape Flattery; `westcoast_sites.py` runs the same model at each and `westcoast_plot.py` draws the map. From Morro Bay northward the outdoor-air stage alone covers 95–99.98% of hours. Results: `results/westcoast_sites.csv`, `results/fig_westcoast_sites.png`.
