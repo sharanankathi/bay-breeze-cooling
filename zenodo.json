@@ -1,0 +1,24 @@
+{
+  "title": "bay-breeze-cooling: models and data for air-first, seawater-backup hybrid cooling of an above-water data center on San Francisco Bay",
+  "upload_type": "software",
+  "description": "Code, data and figures for the preprint \"Breeze First, Seawater Second: Hybrid Cooling for an Above-Water Offshore Data Center on San Francisco Bay Within California's Discharge Limit\". Includes hourly climate and Bay water data processing, two-stage epsilon-NTU heat-exchanger sizing, annual energy and seawater-use models under a 2.2 K discharge limit, robustness checks, a vendor exchanger cross-check and digitised CFD results.",
+  "creators": [
+    {
+      "name": "Ankathi, Vishnu Sai Sharan",
+      "affiliation": "Independent researcher",
+      "orcid": "0009-0003-9824-3632"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "data center cooling",
+    "free cooling",
+    "seawater cooling",
+    "heat exchanger",
+    "epsilon-NTU",
+    "thermal discharge",
+    "San Francisco Bay"
+  ],
+  "version": "v1.0.0",
+  "language": "eng"
+}

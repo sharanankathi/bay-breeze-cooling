@@ -135,6 +135,8 @@ python hx_sizing.py       # Stage 1 plate exchanger size and pressure drop
 python bay_discharge.py   # 2.2 K Bay discharge rule, compliant pump flow, 316(b) intake check
 python robustness.py      # fan heat, fouling, condensation, recirculation, core effectiveness
 python plots_discharge.py # discharge and recirculation charts
+python wind_assist.py     # can the Bay breeze drive outdoor air without fans? (preprint v2)
+python cost_model.py      # screening capital/O&M cost, payback, break-even (preprint v2)
 ```
 
 ## Limitations
@@ -155,7 +157,7 @@ python plots_discharge.py # discharge and recirculation charts
 ## Credits
 
 Research idea, design decisions and modeling direction: **Vishnu Sai Sharan Ankathi**
-([vankathi@usc.edu](mailto:vankathi@usc.edu)). AI tools were used to help write code, run calculations and draft documentation.
+([vishnusaisharan.a@gmail.com](mailto:vishnusaisharan.a@gmail.com)). AI tools were used to help write code, run calculations and draft documentation.
 Data: Open-Meteo (CC BY 4.0) and NOAA CO-OPS (public domain).
 
 
@@ -174,3 +176,12 @@ Full cold-aisle containment holds rack inlets at supply temperature except withi
 **Air-data validation.** `validate_air_fetch.py` downloads measured 2022–2024 air temperature from NOAA tide stations 9414290 (San Francisco) and 9414750 (Alameda) and SFO airport (ASOS). `validate_air.py` and `validate_air_water.py` compare them with the reanalysis input and re-run the model. The reanalysis lies within the measured range (bias −0.6 to +1.0 K); breeze-only hours range 75–94% and the hybrid uses 22–157× less Bay water than seawater first. Results: `results/air_validation_summary.csv`, `results/air_validation_water.csv`.
 
 **West Coast site screen.** `westcoast_fetch.py` downloads NOAA NDBC buoy air, sea temperature and wind (2022–2024) for 14 sites from San Diego to Cape Flattery; `westcoast_sites.py` runs the same model at each and `westcoast_plot.py` draws the map. From Morro Bay northward the outdoor-air stage alone covers 95–99.98% of hours. Results: `results/westcoast_sites.csv`, `results/fig_westcoast_sites.png`.
+
+## Added in preprint v2
+
+**Wind assistance.** `wind_assist.py` downloads hourly NOAA wind (2022–2024) at stations 9414290 and 9414750 and credits the wind's dynamic pressure at an intake facing the prevailing westerly against the 417 Pa the outdoor-air side needs. Mean wind is about 3 m/s; wind saves about 0.5–1 MWh of 55 MWh of outdoor-fan energy per year and never drives the flow alone. Results: `results/wind_assist.csv`.
+
+**Cost screen.** `cost_model.py` compares capital, maintenance and electricity cost for one 270 kW module. Only the air-cooled chiller cost is published (US EIA, 2023); all other capital costs are wide placeholders pending vendor quotes. Simple payback against a chiller plant: 2–11 years at $0.125/kWh, 1–5 years at the California industrial tariff ($0.251/kWh, EIA July 2026). Against seawater first the hybrid costs about $0.005–0.06 per m³ of Bay water not pumped. Results: `results/cost_items.csv`, `results/cost_comparison.csv`.
+
+**Commercial cores and tighter discharge cap.** `vendor_recutech_oct14.py` and `v2_vendor_cap.py` re-run the discharge-compliant model with Recutech REC+95-2000-31-EP cores (selector data, Oct 2026): two per core position give 84 Pa and 81.1 % dry efficiency, 182 MWh/yr and about 18,300 m³/yr of Bay water. At a 1.5 K cap the hybrid barely changes (183 MWh) while seawater first rises to 261 MWh. Results: `results/vendor_recutech_oct14.csv`, `results/v2_vendor_cap.csv`.
+
