@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this code or data, please cite it as below."
 title: "bay-breeze-cooling: models and data for air-first, seawater-backup hybrid cooling of an above-water data center on San Francisco Bay"
-version: v1.1.0
-date-released: 2026-10-19
+version: v1.2.0
+date-released: 2026-10-20
 license: MIT
 repository-code: "https://github.com/sharanankathi/bay-breeze-cooling"
 authors:

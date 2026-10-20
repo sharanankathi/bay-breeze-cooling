@@ -3,7 +3,7 @@
 Energy comes from the discharge-compliant runs (results/bay_discharge_energy.csv, energy_comparison.csv).
 Capital costs are LOW/HIGH ranges. Only the air-cooled chiller is from a published source (EIA 2023,
 2022$, Total Installed Cost for air-cooled screw chillers, 820-1,250 $/ton; maintenance 20-50 $/ton-yr).
-Stage 1 cores: Recutech quote (Oct 2026), epoxy 1.8x standard. Every other capital figure is a placeholder to be replaced with vendor quotes; they are deliberately wide.
+Stage 1 cores: Recutech quote (Oct 2026), epoxy 1.8x standard. Stage 2 coil: manufacturer budget quote (not itemised at the vendor's request) folded into the seawater-loop range. Every other capital figure is a placeholder to be replaced with vendor quotes; they are deliberately wide.
 Chilled-water distribution for the chiller baseline is NOT counted, which favours the chiller.
 Run: python cost_model.py
 """
@@ -14,8 +14,10 @@ R = Path(__file__).parent / "results"
 TON = 3.517  # kW thermal per ton
 
 # --- energy (MWh/yr), discharge-compliant, vendor cores (84 Pa, 81.1 %) + coil bypass -------------------
-E = {"hybrid": 182.5, "seawater_first": 200.8, "chiller_only": 741.1, "chiller_only_cop6": 544.0}
-WATER = {"hybrid": 18_307, "seawater_first": 1_128_052}           # m3/yr
+# hybrid: Super Radiator 60x76-6R coil rating, pump limited to 290 GPM/path (v2_vendor_coil.py)
+# seawater first: assumed eps 0.80 coil (favours that baseline; with the quoted coil it would need ~3,100 chiller h/yr)
+E = {"hybrid": 182.9, "seawater_first": 200.8, "chiller_only": 741.1, "chiller_only_cop6": 544.0}
+WATER = {"hybrid": 21_163, "seawater_first": 1_128_052}           # m3/yr
 PRICE = {"paper basis": 0.125, "California industrial (EIA, Jul 2026)": 0.2511}
 
 # --- capital, $ (LOW, HIGH) -------------------------------------------------------------------
@@ -25,11 +27,11 @@ CAPEX = {
     "hybrid": {
         "Stage 1 cores: 12x Recutech REC+95-2000-31-EP (quote $2,880 ea; +25% shipping/handling high)": (12 * 2880, 12 * 2880 * 1.25),
         "Outdoor-air fans, filters, louvres, ducts (3-6 $/cfm)": (3 * OA_CFM, 6 * OA_CFM),
-        "Seawater loop: coil, pump, strainer, intake/outfall": (75_000, 150_000),
-        "Trim chiller, ~5 ton": (5_000, 10_000),
+        "Seawater loop: coil, pump, strainer, intake/outfall (raised after a manufacturer budget quote for the coils)": (100_000, 200_000),
+        "Trim chiller, ~14 ton (48 kW peak with the quoted coil; EIA 820-1,250 $/ton)": (14 * 820, 14 * 1250),
     },
     "seawater_first": {
-        "Seawater loop, peak 24 vs 18 kg/s per path (x1.3)": (100_000, 195_000),
+        "Seawater loop, continuous duty (x1.3)": (130_000, 260_000),
         "Trim chiller, ~5 ton": (5_000, 10_000),
     },
     "chiller_only": {

@@ -143,7 +143,7 @@ python cost_model.py      # screening capital/O&M cost, payback, break-even (pre
 
 - Single weather grid point and single tide station, not an on-site survey; 3 years of data, not a 30-year normal.
 - Heat exchanger effectiveness values are design assumptions, not vendor data. The sensitivity table shows how much they matter.
-- Pressure drops for filters, ducts and coils are typical design values, not vendor data.
+- Pressure drops for filters and ducts are typical design values, not vendor data (the Stage 1 cores and the seawater coil are checked against manufacturer ratings).
 - The discharge check applies the 2.2 K cap at the coil outlet; permit mixing-zone and biological conditions are not modeled.
 - The CFD model sets the rack airflow and heat as inputs; it tests how the room air behaves, not rack internals.
 - Not peer reviewed. Feedback from data center thermal, marine/corrosion and HVAC engineers is very welcome.
@@ -181,7 +181,9 @@ Full cold-aisle containment holds rack inlets at supply temperature except withi
 
 **Wind assistance.** `wind_assist.py` downloads hourly NOAA wind (2022–2024) at stations 9414290 and 9414750 and credits the wind's dynamic pressure at an intake facing the prevailing westerly against the 417 Pa the outdoor-air side needs. Mean wind is about 3 m/s; wind saves about 0.5–1 MWh of 55 MWh of outdoor-fan energy per year and never drives the flow alone. Results: `results/wind_assist.csv`.
 
-**Cost screen.** `cost_model.py` compares capital, maintenance and electricity cost for one 270 kW module. Only the air-cooled chiller cost is published (US EIA, 2023); all other capital costs are wide placeholders pending vendor quotes. Simple payback against a chiller plant: 2–11 years at $0.125/kWh, 1–5 years at the California industrial tariff ($0.251/kWh, EIA July 2026). Against seawater first the hybrid costs about $0.005–0.06 per m³ of Bay water not pumped. Results: `results/cost_items.csv`, `results/cost_comparison.csv`.
+**Cost screen.** `cost_model.py` compares capital, maintenance and electricity cost for one 270 kW module. Published or quoted: the air-cooled chiller (US EIA, 2023) and the Stage 1 cores (Recutech quote); the seawater-loop range is informed by a coil manufacturer's budget quote (not itemised at the vendor's request); the outdoor-air system is a wide placeholder. Simple payback against a chiller plant: about 1.5–8 years at $0.125/kWh, 1–3.5 years at the California industrial tariff ($0.251/kWh, EIA July 2026). Against seawater first the hybrid costs at most about $0.04 per m³ of Bay water not pumped. Results: `results/cost_items.csv`, `results/cost_comparison.csv`.
 
 **Commercial cores and tighter discharge cap.** `vendor_recutech_oct14.py` and `v2_vendor_cap.py` re-run the discharge-compliant model with Recutech REC+95-2000-31-EP cores (selector data, Oct 2026): two per core position give 84 Pa and 81.1 % dry efficiency, 182 MWh/yr and about 18,300 m³/yr of Bay water. At a 1.5 K cap the hybrid barely changes (183 MWh) while seawater first rises to 261 MWh. Results: `results/vendor_recutech_oct14.csv`, `results/v2_vendor_cap.csv`.
+
+**Commercial seawater coil.** `v2_vendor_coil.py` fits the Stage 2 coil conductance to a Super Radiator Coils selection (model 60x76-6R-0.625/96, Cu-Ni 90/10 tubes, 316 SS casing; rated at 50, 150 and 290 GPM, Oct 2026) and re-runs the discharge-compliant model. The real coil is less effective than the assumed ε = 0.80 (UA 10–15 vs 41.5 kW/K), but with the pump limited to the rated 290 GPM per path the hybrid uses 183 MWh/yr, pumps about 21,200 m³/yr, keeps the design intake at 0.84 MGD and needs a trim chiller about 41 h/yr. Results: `results/v2_vendor_coil.csv`, `results/v2_vendor_coil_fit.csv`.
 
